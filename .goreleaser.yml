@@ -1,0 +1,43 @@
+# This is an example .goreleaser.yml file with some sane defaults.
+# Make sure to check the documentation at http://goreleaser.com
+project_name: gotify-bridge
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod tidy
+    # you may remove this if you don't need go generate
+    # - go generate ./...
+    - sed -i 's/RePlAcEbYcIhErE/v{{ .Version }} ({{.ShortCommit}})/g' main/version.go
+builds:
+  - main: ./main
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+archives:
+  - format: zip
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+dockers:
+  - image_templates:
+      - ghcr.io/dev-techmoe/gotify-bridge:latest
+      - ghcr.io/dev-techmoe/gotify-bridge:{{ .Tag }}
+      - ghcr.io/dev-techmoe/gotify-bridge:v{{ .Version }}
+checksum:
+  name_template: "checksums.txt"
+snapshot:
+  name_template: "{{ incpatch .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+release:
+  prerelease: auto

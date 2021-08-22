@@ -193,7 +193,8 @@ func main() {
 
 	flag.Parse()
 
-	logger.Info("Gotify Bridge v1.0 by techmoe (https://github.com/dev-techmoe/gotify-bridge)")
+	logger.Infof("Gotify Bridge %s", VERSION)
+	logger.Info("author: techmoe (https://github.com/dev-techmoe/gotify-bridge)")
 	initWebServer()
 
 	// check config file exists
