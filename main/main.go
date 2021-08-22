@@ -216,7 +216,7 @@ func main() {
 	go createAndListenWebsocket(config.Gotify.Address, messageChan)
 	go sendWebPush(messageChan)
 
-	logger.Infof("webserver listen on %s", listenAddress)
+	logger.Infof("webserver listen on %s", config.Http.ListenAddress)
 	err = http.ListenAndServe(config.Http.ListenAddress, nil)
 	if err != nil {
 		logger.Fatalf("failed to listen %s (%s)", listenAddress, err)
