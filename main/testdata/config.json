@@ -1,0 +1,21 @@
+{
+  "Gotify": {
+    "address": ""
+  },
+  "Http": {
+    "ListenAddress": "127.0.0.1:3000"
+  },
+  "Vapid": {
+    "PublicKey": "PublicKeyPublicKeyPublicKeyPublicKeyPublicKey",
+    "PrivateKey": "PrivateKeyPrivateKeyPrivateKeyPrivateKeyPrivateKey"
+  },
+  "Subscriber": [
+    {
+      "endpoint": "endpoint",
+      "keys": {
+        "auth": "autaaaaaaaaaaaaaaah",
+        "p256dh": "abcaaaaaaaaaa"
+      }
+    }
+  ]
+}
