@@ -206,6 +206,11 @@ func main() {
 	}
 	// load config
 	loadConfig()
+	// if Vapid public key or private key is empty, generate them and save it
+	if config.Vapid.PrivateKey == "" || config.Vapid.PublicKey == "" {
+		generateVapidKeyPair()
+		saveConfig()
+	}
 
 	messageChan := make(chan *GotifyMessage)
 	go createAndListenWebsocket(config.Gotify.Address, messageChan)
