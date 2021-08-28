@@ -27,7 +27,6 @@ archives:
 dockers:
   - image_templates:
       - ghcr.io/dev-techmoe/gotify-bridge:latest
-      - ghcr.io/dev-techmoe/gotify-bridge:{{ .Tag }}
       - ghcr.io/dev-techmoe/gotify-bridge:v{{ .Version }}
 checksum:
   name_template: "checksums.txt"
