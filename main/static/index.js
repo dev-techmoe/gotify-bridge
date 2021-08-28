@@ -7,7 +7,7 @@ window.onload = () => {
     if (Notification.permission !== "denied") {
       Notification.requestPermission().then(() => {
         navigator.serviceWorker.register("sw.js").then((swReg) => {
-          fetch("/api/getPublicKey").then((data) => {
+          fetch("api/getPublicKey").then((data) => {
             data.text().then((key) => {
               console.log(key);
               console.log(swReg);
@@ -18,7 +18,7 @@ window.onload = () => {
                 })
                 .then((subscription) => {
                   console.log(subscription);
-                  fetch("/api/subscribe", {
+                  fetch("api/subscribe", {
                     method: "POST",
                     body: JSON.stringify(subscription),
                   }).then(() => {
