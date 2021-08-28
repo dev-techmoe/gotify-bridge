@@ -15,7 +15,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// go:embed static
+//go:embed static/*
 var embedStaticFs embed.FS
 
 type GotifyMessage struct {
@@ -51,14 +51,16 @@ type WebPushMessage struct {
 }
 
 var (
-	logger        = logrus.New()
-	listenAddress = "127.0.0.1:3000"
-	configPath    = "config.json"
-	config        = &Config{}
+	logger         = logrus.New()
+	listenAddress  = "127.0.0.1:3000"
+	configPath     = "config.json"
+	config         = &Config{}
+	useEmbedStatic = false
 )
 
 func init() {
 	flag.StringVar(&configPath, "config", "config.json", "path of the configuration file")
+	flag.BoolVar(&useEmbedStatic, "use-embed-static", false, "use embeded static files for webserver (for debug)")
 	logger.SetLevel(logrus.DebugLevel)
 }
 
@@ -152,13 +154,13 @@ func sendWebPush(messageChan chan *GotifyMessage) {
 
 func initWebServer() {
 	var staticFs http.FileSystem
-	_, err := os.Stat("static")
-	if os.IsNotExist(err) {
+	_, err := os.Stat("main/static")
+	if os.IsNotExist(err) || useEmbedStatic {
 		fsys, _ := fs.Sub(embedStaticFs, "static")
 		staticFs = http.FS(fsys)
 	} else {
 		logger.Debug("webserver is currently use static folder because it exists")
-		staticFs = http.Dir("static")
+		staticFs = http.Dir("main/static")
 	}
 
 	http.Handle("/", http.FileServer(staticFs))
