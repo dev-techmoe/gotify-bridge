@@ -10,6 +10,10 @@ Current only support WebPush
 
 Gotify is a message server written in Golang. see [Homepage of Gotify](https://gotify.net/) for more detail.
 
+## Security Warning
+
+The current version of Gotify bridge is not enabled any auth method for webserver, make sure your bridge instance run with a safe network environment.
+
 ## Download
 
 ### Binary
